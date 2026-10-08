@@ -1,6 +1,6 @@
 {
   "name": "dsh-anime-waifu",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "中秋玉兔 · DSH 二次元插件：Web 客户端看板娘（提灯月饼玉兔，智能体干活时按 4 帧位图步态走动）+ 花瓣/星夜特效与碧蓝 / 星夜紫罗兰主题，附带插件页设置卡片。",
   "type": "module",
   "main": "lib/index.js",

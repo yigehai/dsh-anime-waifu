@@ -108,7 +108,7 @@ Host 半侧的 Config 字段都是 volatile：既能写在 profile 的 cordis.pa
       name: 'dsh-anime-waifu'
       config:
         enabled: true            # 是否显示看板娘
-        size: 133                # 宽度 px（120-360），默认=原来的 2/3
+        size: 133                # 宽度 px（80-360），默认=原来的 2/3
         opacity: 1               # 不透明度（0.3-1）
         position: right          # right | left
         sakura: true             # 花瓣特效（蓝色）
