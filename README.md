@@ -33,8 +33,9 @@
 
 「设置 → 插件 → 添加插件」里填**绝对路径**（相对路径会被拒绝——Host 的工作目录和填表的人无关）：
 
-    <本仓库>\dist\dsh-anime-waifu-0.10.4.tgz     ← tarball，可热生效
+    <本仓库>\dist\dsh-anime-waifu-0.10.6.tgz     ← 本地 tarball，可热生效
     <本仓库根目录>                              ← 本地目录（link），需重启一次
+    https://github.com/yigehai/dsh-anime-waifu/releases/tag/v0.10.6   ← 或从 Releases 下载附件 dsh-anime-waifu-0.10.6.tgz
 
 应用内的插件管理会自己跑 pnpm，装完调用 reconcileProfilePatches 让 Loader 重新收敛并广播
 app-boot/config-reload；组合里带 hmr 服务时结果是 applied，刷新一次页面就能看到玉兔（`hmr` 缺失的启动期
@@ -61,7 +62,7 @@ adaptEsm 的 `state.esm`）。link 期间 `dsh-anime-waifu` 已经被解析成 l
 
 ### 方式二：命令行安装（**只对非 desktop profile 成立**）
 
-    dsh plugin --profile tui add <本仓库>/dist/dsh-anime-waifu-0.10.4.tgz
+    dsh plugin --profile tui add <本仓库>/dist/dsh-anime-waifu-0.10.6.tgz
 
 **`--profile desktop` 会被 CLI 直接拒绝。** `@deepseek-ai/dsh/lib/bin.js` 里有：
 
