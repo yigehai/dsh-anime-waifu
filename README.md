@@ -1,10 +1,10 @@
 # 中秋玉兔（dsh-anime-waifu）· DSH 二次元插件
 
-给 DSH Web GUI 加一只**会说话、可拖动的中秋玉兔看板娘**（插件页显示名就叫「中秋玉兔」），外加**花瓣飘落 / 星夜闪烁**两套特效和
+给 DSH Web GUI 加一只**会说话、可拖动的中秋玉兔**（插件页显示名就叫「中秋玉兔」），外加**花瓣飘落 / 星夜闪烁**两套特效和
 **「碧蓝」「星夜紫罗兰」** 两套二次元配色主题。全部工作都在浏览器半侧完成，不注册任何模型工具，
 不占用上下文 token。
 
-![看板娘预览](assets/preview.png)
+![玉兔预览](assets/preview.png)
 
 > 预览图（`assets/preview.png`）是 `art/front.webp` 的缩略渲染，也就是插件默认内嵌的那张生成图。
 >
@@ -14,7 +14,7 @@
 
 | 功能 | 说明 |
 | --- | --- |
-| 悬浮看板娘 | 右下角（可改左下角）的内联 SVG 中秋玉兔（照参考图重画）：白毛 + 黑豆眼 + 长耳 + **直立站在地上（两条腿）** + 手提金灯笼 + 莲纹月饼 + 桂花；呼吸浮动、定时眨眼、长耳轻摆 |
+| 悬浮玉兔 | 右下角（可改左下角）的内联 SVG 中秋玉兔（照参考图重画）：白毛 + 黑豆眼 + 长耳 + **直立站在地上（两条腿）** + 手提金灯笼 + 莲纹月饼 + 桂花；呼吸浮动、定时眨眼、长耳轻摆 |
 | 状态跟随 | 智能体**正在执行任务**时兔子两条腿**交替垂直抬起迈步**（人走路的样子：腿几乎只上下动、不左右开合），身体按步频**轻轻起落两次/周期**、金灯笼小幅摆动、落地影子收缩；**没有任务**时腿停住、只做呼吸浮动。（来源：客户端 `uiSession` 的会话运行状态快照 + 网关 `api-session/status` 事件） |
 | 会说话 | 点击角色随机说一句台词；闲置一段时间也会主动开口；模型流式输出时显示「在写了」 |
 | 拖动定位 | 按住角色拖到任意位置，位置写入 localStorage，窗口缩放时自动收敛在可视区 |
@@ -24,7 +24,7 @@
 | 设置面板 | 角色右上角齿轮打开：开关、大小、不透明度、停靠、特效、说话间隔、台词编辑、主题 |
 | 插件页卡片 | 「设置 → 插件 → 本 bundle 详情页」里的卡片：实时状态 + 一键开关 / 切主题 / 打开面板 |
 | 形象可切换 | 默认用**生成的玉兔图**：手工生成的 1672×941 原图 → 纯深蓝底抠成透明 → 裁到最小包围盒 → 按躯干中心归一化到 409×720 画布 → 内嵌成 data URI。设置面板「形象」一键切回手绘 SVG；图被策略挡掉会自动退回 SVG |
-| 快捷键 | Ctrl+Shift+A 显示 / 隐藏看板娘 |
+| 快捷键 | Ctrl+Shift+A 显示 / 隐藏玉兔 |
 | 走动步态 | 走动时切到 **8 帧位图步态**：一条 8 格横排条带逐格切出，统一归一化到 368×720 画布、躯干居中、脚底对齐 695/720，靠 `.awp-pN` 相位 class 切可见帧（相位规则由 `WALK_FRAMES` 展开，加帧不用改 CSS）。走动时**只有逐帧换图**，不叠加任何上下起伏、缩放或影子动画；8 帧位置本身已对齐（头顶/脚底 0px 差、躯干质心极差 0.8px）。整轮约 1.2s、原地迈步、无左右位移；「减少动态效果」下放慢到 2.6s |
 
 ## 安装
@@ -37,7 +37,7 @@
     <本仓库根目录>                              ← 本地目录（link），需重启一次
 
 应用内的插件管理会自己跑 pnpm，装完调用 reconcileProfilePatches 让 Loader 重新收敛并广播
-app-boot/config-reload；组合里带 hmr 服务时结果是 applied，刷新一次页面就能看到看板娘（`hmr` 缺失的启动期
+app-boot/config-reload；组合里带 hmr 服务时结果是 applied，刷新一次页面就能看到玉兔（`hmr` 缺失的启动期
 profile 会提示「更改将在下次启动生效」）。**「热生效」只对 tarball 成立**，两种规格的差别在 Node 的模块解析层
 （`@deepseek-ai/dsh-app-boot` 的 installRuntimeInterception，每个进程只在启动时装一次）：
 
@@ -107,7 +107,7 @@ Host 半侧的 Config 字段都是 volatile：既能写在 profile 的 cordis.pa
     - id: anime-waifu            # 条目 id，浏览器半侧按它读取默认值
       name: 'dsh-anime-waifu'
       config:
-        enabled: true            # 是否显示看板娘
+        enabled: true            # 是否显示玉兔
         size: 133                # 宽度 px（80-360），默认=原来的 2/3
         opacity: 1               # 不透明度（0.3-1）
         position: right          # right | left
@@ -119,9 +119,9 @@ Host 半侧的 Config 字段都是 volatile：既能写在 profile 的 cordis.pa
         petalCount: 14           # 花瓣数量（0-60）
         petalSpeed: 1            # 飘落速度倍率（0.2-3）
         starCount: 20            # 星点数量（0-120）
-        dockMargin: 16           # 看板娘距屏幕边缘的距离 px（0-160）
+        dockMargin: 16           # 玉兔距屏幕边缘的距离 px（0-160）
         bubbleSeconds: 6.5       # 台词气泡停留秒（1-30）
-        zIndex: 2147482000       # 看板娘所在层的叠放层级（1000-2147483000）
+        zIndex: 2147482000       # 玉兔所在层的叠放层级（1000-2147483000）
         walkWhenBusy: true       # 智能体干活时是否走动
         walkSpeed: 1             # 走动速度倍率（0.5-2）
         lines: ['今天也一起加油吧～']
@@ -136,7 +136,7 @@ lib/client.js 顶部的 ENTRY_ID，否则只会退回内置默认值（功能不
       package.json        名字、exports、dsh.bundle（patch）与 dsh.client（platform: web, immediately）
       cordis.patch.yml    插入 anime-waifu 这一行，让 dsh plugin 能把它当 bundle 安装
       lib/index.js        Host 半侧：Config（volatile 部署默认值）+ 关掉自动生成的通用表单
-      lib/client.js       浏览器半侧：惰性 CJS 工厂产物（看板娘 / 特效 / 主题 / 面板 / 插件页卡片）
+      lib/client.js       浏览器半侧：惰性 CJS 工厂产物（玉兔 / 特效 / 主题 / 面板 / 插件页卡片）
       locale/zh.json      插件页显示名与简介（中文）：{"meta":{"title":"中秋玉兔",...}}
       locale/en.json      同上（英文，回退用）
       assets/preview.png  预览图（仅文档用）
@@ -148,7 +148,7 @@ lib/client.js 顶部的 ENTRY_ID，否则只会退回内置默认值（功能不
       README.md
 
 浏览器半侧只 require 平台内置模块（react、react/jsx-runtime）；主题服务与配置表单都是**可选**服务（用
-ctx.inject 可选绑定，缺席时看板娘照常工作），所以包本身没有运行时的包间 import 依赖。
+ctx.inject 可选绑定，缺席时玉兔照常工作），所以包本身没有运行时的包间 import 依赖。
 
 但 dsh.client.inject 必须声明一条顺序边：
 
@@ -215,16 +215,16 @@ test/harness.js 是一个不依赖浏览器的冒烟测试：它用极简 DOM �
 
 | 现象 | 原因 / 处理 |
 | --- | --- |
-| 插件在，但页面没有看板娘 | 未完全重启 Web；或组合里没有加载该 bundle（看 --dump-config 是否有这一层） |
+| 插件在，但页面没有玉兔 | 未完全重启 Web；或组合里没有加载该 bundle（看 --dump-config 是否有这一层） |
 | 启用失败：`1 entry did not activate anime-waifu (dsh-anime-waifu): failed to import` | 该 entry 的解析结果被**进程内缓存**（见「安装」）：先前用**目录**（link）热装过，就会一直解析到工作区那条真实路径，那里没有拦截层，`@deepseek-ai/*` 这类 peer 导入解析不到 → **完整重启一次 DSH**（卸载 + 改装 tarball 都不会改变这份缓存）。首次就直接用 tarball 安装则不需要重启 |
 | 插件页没有卡片 | bundle 未进 dsh.profile.bundles，或缺 dsh.client 声明 / 未构建 lib/client.js |
-| 看板娘空白 / 只有气泡 | 生成图被页面策略拦截时会自动回退手绘 SVG 并在控制台打印一行 warn；两套形象都没有时请看「样式表被移除」那条 |
+| 玉兔空白 / 只有气泡 | 生成图被页面策略拦截时会自动回退手绘 SVG 并在控制台打印一行 warn；两套形象都没有时请看「样式表被移除」那条 |
 | 切到生成图后看不出在走动 | 走动用的是 8 帧位图步态（约 150ms 一帧、整轮约 1.2s）；若几乎不动，检查是否被系统「减少动态效果」按下了（该偏好会把整轮拉长到 2.6s） |
 | 主题按钮是灰的 | 组合里没有 ctx.theme（@deepseek-ai/dsh-client-ui-theme） |
 | 主题列表没有新配色 | 该 id 已被别的插件注册（重复注册会抛错，被捕获后只跳过该配色），且平台「外观」开关不会列出第三方配色——用本插件的设置面板 / 卡片切换 |
 | 改了 config 不生效 | patch 是整块替换；或浏览器本地已有同名偏好（面板里「恢复默认」清掉）；卡片显示「配置仅在本地生效」说明 Host 没接受写回（非回环页面 / 只读字段 / revision 冲突） |
 | 页面启动报 fiber FAILED | 检查 lib/client.js 是否语法完整、plugins.bundle.config 槽位 key 是否为包名 |
-| 看板娘 / 面板变成裸控件（DOM 在、样式没了） | 样式表被别的代码从 document.head 移除了。0.7.6 起插件带**样式守卫**：发现丢失或内容不符就按当前 CSS 重新注入，并在控制台留一行 `[dsh-anime-waifu] 样式表被移除，已按当前 CSS 重新注入`。若仍不生效，把这条警告与其它控制台报错发我 |
+| 玉兔 / 面板变成裸控件（DOM 在、样式没了） | 样式表被别的代码从 document.head 移除了。0.7.6 起插件带**样式守卫**：发现丢失或内容不符就按当前 CSS 重新注入，并在控制台留一行 `[dsh-anime-waifu] 样式表被移除，已按当前 CSS 重新注入`。若仍不生效，把这条警告与其它控制台报错发我 |
 | 兔子一直走 / 一直站 | 走动只在「有会话 running」时触发：看卡片徽标是「干活中 · 走动」还是「待机 · 站定」；若状态不跟随，确认组合里加载了 \`@deepseek-ai/dsh-client-ui-session\`（uiSession 服务），或退一步依赖网关的 remote 事件 api-session/status；面板里「干活时走动」关掉就一直站定 |
 
 ## 许可

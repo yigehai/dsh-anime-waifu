@@ -365,4 +365,10 @@ console.log('root removed:', doc.body.querySelector('[data-anime-waifu-root]') =
 console.log('style removed:', doc.head.querySelector('[data-dsh-anime-waifu]') === null);
 console.log('themes after dispose:', themes.map(t => t.id).join(','));
 console.log('document keydown listeners:', doc.listenerCount('keydown'), '| window resize:', win.listenerCount('resize'));
+console.log('--- 文案守卫 ---');
+// 禁用词用码点写出，免得它本身出现在包里
+const BAN_WORD = String.fromCharCode(0x770b, 0x677f, 0x5a18);
+console.log('client 源码不含禁用词:', !src.includes(BAN_WORD));
+const noBan = (rel) => { try { return !fs.readFileSync(rel, 'utf8').includes(BAN_WORD); } catch (error) { return true; } };
+console.log('README / index / locale / package 同样干净:', ['README.md', 'lib/index.js', 'locale/zh.json', 'package.json'].every(noBan));
 console.log('ALL CHECKS DONE');
