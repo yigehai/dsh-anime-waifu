@@ -1,0 +1,6 @@
+# dsh-anime-waifu bundle patch: register the plugin row so the package is
+# installable as a DSH plugin. The row id (`anime-waifu`) is also the settings
+# entry id the browser half reads its deployment defaults from.
+- insert:
+    - id: anime-waifu
+      name: 'dsh-anime-waifu'

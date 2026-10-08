@@ -1,0 +1,52 @@
+{
+  "name": "dsh-anime-waifu",
+  "version": "0.10.2",
+  "description": "中秋玉兔 · DSH 二次元插件：Web 客户端看板娘（提灯月饼玉兔，智能体干活时按 4 帧位图步态走动）+ 花瓣/星夜特效与碧蓝 / 星夜紫罗兰主题，附带插件页设置卡片。",
+  "type": "module",
+  "main": "lib/index.js",
+  "icon": "./assets/icon.svg",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "LICENSE",
+    "README.md",
+    "locale/*.json",
+    "assets/preview.png",
+    "assets/icon.svg",
+    "test/harness.js"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-plugin-manager"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/schemastery": "*"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "anime",
+    "waifu",
+    "theme",
+    "二次元",
+    "中秋",
+    "玉兔"
+  ],
+  "license": "MIT"
+}
