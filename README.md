@@ -52,7 +52,7 @@
 
 「设置 → 插件 → 添加插件」里填**绝对路径**（相对路径会被拒绝）：
 
-    <本仓库>\dist\dsh-anime-waifu-0.10.6.tgz                    ← 本地 tarball
+    <本仓库>\dist\dsh-anime-waifu-0.10.7.tgz                    ← 本地 tarball
     <本仓库根目录>                                               ← 本地目录（link）
     https://github.com/yigehai/dsh-anime-waifu/releases          ← 或从 Releases 下载附件
 
@@ -62,7 +62,7 @@
 
 ### 方式二：命令行（只对非 desktop profile 成立）
 
-    dsh plugin --profile tui add <本仓库>/dist/dsh-anime-waifu-0.10.6.tgz
+    dsh plugin --profile tui add <本仓库>/dist/dsh-anime-waifu-0.10.7.tgz
 
 桌面版的 desktop profile 只能走方式一，命令行会被拒绝。
 
