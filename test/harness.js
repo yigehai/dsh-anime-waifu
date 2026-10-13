@@ -258,6 +258,17 @@ api.setTheme('off');
 console.log('off -> preference restored to:', preference);
 api.setTheme('anime-night');
 console.log('back to anime-night:', preference);
+// 平台侧：settings 文档一有写入，ui-theme 就会 adopt() 回它持久化的内置 preference
+// （只可能是 light/dark/system），第三方配色因此被丢掉。模拟这次广播：
+preference = 'system';
+(listeners['theme/change'] || []).forEach(h => h('system'));
+console.log('adopt 后自动贴回第三方配色:', preference, '| activeThemeId:', api.getState().activeThemeId);
+api.setTheme('off');
+preference = 'system';
+(listeners['theme/change'] || []).forEach(h => h('system'));
+console.log('跟随系统时不做贴回:', preference);
+api.setTheme('anime-night');
+console.log('再次切回 anime-night:', preference);
 api.setEnabled(false);
 console.log('hide -> display:', mascot.style.display);
 api.showPanel();
