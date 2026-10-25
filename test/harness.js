@@ -349,10 +349,10 @@ console.log('raster has ground shadow:', doc.body.querySelector('.aw-ground') !=
 console.log('raster has walk sprite:', doc.body.querySelector('[data-aw="walksprite"]') !== null);
 console.log('raster figure marked:', doc.body.querySelector('.aw-figure-raster') !== null);
 console.log('走动只有换帧、没有额外位移:', !styleText.includes('aw-walk-bob') && !styleText.includes('aw-rast-walk') && !styleText.includes('aw-rast-ground') && styleText.includes('.aw-mascot.aw-walking .aw-figure.aw-figure-raster .aw-walk{display:block}'));
-console.log('走动用 8 帧位图切相位:', styleText.includes('.aw-walk.awp-p0 img[data-f="0"]') && styleText.includes('.aw-walk.awp-p7 img[data-f="7"]'));
+console.log('走动用 12 帧位图切相位:', styleText.includes('.aw-walk.awp-p0 img[data-f="0"]') && styleText.includes('.aw-walk.awp-p11 img[data-f="11"]'));
 console.log('原地迈步（无左右位移）:', !styleText.includes('aw-patrol') && !styleText.includes('scaleX(-1)'));
-console.log('八个相位各对应一帧:', Array.from({ length: 8 }, (_, i) => i).every((i) => styleText.includes('.aw-walk.awp-p' + i + ' img[data-f="' + i + '"]')));
-console.log('走步精灵共 8 帧:', doc.body.querySelectorAll('img').filter((n) => n.getAttribute('data-f') !== undefined).length === 8);
+console.log('十二个相位各对应一帧:', Array.from({ length: 12 }, (_, i) => i).every((i) => styleText.includes('.aw-walk.awp-p' + i + ' img[data-f="' + i + '"]')));
+console.log('走步精灵共 12 帧:', doc.body.querySelectorAll('img').filter((n) => n.getAttribute('data-f') !== undefined).length === 12);
 console.log('静止偏好不再关掉迈腿:', styleText.includes('.aw-ground{animation:none!important}') && !styleText.includes('aw-sprite'));
 artSel.value = 'svg'; artSel.fire('change');
 console.log('switch back to svg:', doc.body.querySelector('.aw-leg-l') !== null && doc.body.querySelector('[data-aw="raster"]') === null && doc.body.querySelector('.aw-figure-raster') === null && doc.body.querySelector('.aw-ground') === null && doc.body.querySelector('[data-aw="walksprite"]') === null);
@@ -362,12 +362,12 @@ console.log('switch again to raster:', doc.body.querySelector('.aw-raster') !== 
 console.log('--- 步态相位推进（JS 切 class）---');
 setRunning('s-1', true);
 const walkBox2 = doc.body.querySelector('.aw-walk');
-const phaseOf = () => Array.from({ length: 8 }, (_, i) => i).filter((i) => walkBox2 && walkBox2.classList.contains('awp-p' + i))[0];
+const phaseOf = () => Array.from({ length: 12 }, (_, i) => i).filter((i) => walkBox2 && walkBox2.classList.contains('awp-p' + i))[0];
 const p0 = phaseOf();
 [...timers.values()].forEach((fn) => { try { fn(); } catch (error) { /* 其它定时器 */ } });
 const p1 = phaseOf();
 console.log('推进后会换相位:', p0 >= 0 && p1 >= 0 && p1 !== p0, '(' + p0 + ' → ' + p1 + ')');
-console.log('始终只有一个相位 class:', Array.from({ length: 8 }, (_, i) => i).filter((i) => walkBox2 && walkBox2.classList.contains('awp-p' + i)).length === 1);
+console.log('始终只有一个相位 class:', Array.from({ length: 12 }, (_, i) => i).filter((i) => walkBox2 && walkBox2.classList.contains('awp-p' + i)).length === 1);
 setRunning('s-1', false);
 console.log('停下后回到相位 0:', phaseOf() === 0);
 console.log('--- dispose ---');
