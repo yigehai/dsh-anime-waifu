@@ -284,8 +284,13 @@ const sakuraInput = root.querySelector('[data-aw="sakura"]');
 sakuraInput.checked = true;
 sakuraInput.fire('change');
 console.log('petals visible now:', petals.parentElement.style.display !== 'none');
-(listeners['agent/assistant-stream'] || []).forEach(h => h({ type: 'chunk', chunk: { type: 'text-delta', text: 'hi' } }));
+panel.hidden = true;
+setRunning('s-1', true);                     // 忙起来 → 气泡显示「在写了」
 console.log('bubble:', JSON.stringify(bubble.textContent), '| shown:', bubble.classList.contains('aw-show'));
+setRunning('s-1', false);
+api.showPanel();
+console.log('面板打开时气泡自动收起:', panel.hidden === false && !bubble.classList.contains('aw-show'));
+panel.hidden = true;
 (listeners['agent/status'] || []).forEach(h => h({ status: 'idle' }));
 console.log('thinking after idle:', api.getState().enabled);
 
