@@ -290,6 +290,7 @@ console.log('bubble:', JSON.stringify(bubble.textContent), '| shown:', bubble.cl
 setRunning('s-1', false);
 api.showPanel();
 console.log('面板打开时气泡自动收起:', panel.hidden === false && !bubble.classList.contains('aw-show'));
+console.log('面板打开时齿轮按钮已收起:', mascot.classList.contains('aw-panel-open'));
 panel.hidden = true;
 (listeners['agent/status'] || []).forEach(h => h({ status: 'idle' }));
 console.log('thinking after idle:', api.getState().enabled);
