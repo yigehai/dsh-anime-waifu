@@ -161,7 +161,7 @@ const themeService = {
   },
   setTheme: (id) => { if (id !== 'system' && !themes.some(t => t.id === id)) throw new Error('unregistered ' + id); preference = id; },
 };
-const hostValue = { enabled: true, size: 240, sakura: false, stars: true, opacity: 1, position: 'right', theme: 'off', idleSeconds: 45, lines: ['部署台词一', '部署台词二'] };
+const hostValue = { enabled: true, size: 240, opacity: 1, position: 'right', theme: 'off', idleSeconds: 45, lines: ['部署台词一', '部署台词二'] };
 const writes = [];
 const form = { getSnapshot: () => ({ value: hostValue }), subscribe: () => () => {}, set: (k, v) => { writes.push([k, v]); } };
 const gets = [];
@@ -234,8 +234,6 @@ mod.apply(ctx);
 
 const root = doc.body.querySelector('[data-anime-waifu-root]');
 const mascot = root.querySelector('[data-aw="mascot"]');
-const petals = root.querySelector('.aw-petals');
-const stars = root.querySelector('.aw-stars');
 const bubble = root.querySelector('[data-aw="bubble"]');
 const panel = root.querySelector('[data-aw="panel"]');
 console.log('--- boot ---');
@@ -244,7 +242,6 @@ console.log('slot registered:', registered.map(r => r.options.name + '#' + r.opt
 console.log('configForms.get(anime-waifu):', gets.join(','));
 console.log('theme ids:', themes.map(t => t.id).join(','));
 console.log('mascot display:', mascot.style.display, '| --aw-size:', root.style.getPropertyValue('--aw-size'));
-console.log('petals visible:', petals.parentElement.style.display !== 'none', '| petals:', petals.children.length, '| stars:', stars.children.length);
 console.log('theme buttons:', root.querySelector('[data-aw="themes"]').children.map(b => b.textContent).join(' | '));
 console.log('lines synced:', JSON.stringify(root.querySelector('[data-aw="lines"]').value));
 console.log('size/idle out:', root.querySelector('[data-aw="size-out"]').textContent, '/', root.querySelector('[data-aw="idle-out"]').textContent);
@@ -280,10 +277,6 @@ const sizeInput = root.querySelector('[data-aw="size"]');
 sizeInput.value = '300';
 sizeInput.fire('input');
 console.log('size:', api.getState().size, '| css var:', root.style.getPropertyValue('--aw-size'));
-const sakuraInput = root.querySelector('[data-aw="sakura"]');
-sakuraInput.checked = true;
-sakuraInput.fire('change');
-console.log('petals visible now:', petals.parentElement.style.display !== 'none');
 panel.hidden = true;
 setRunning('s-1', true);                     // 忙起来 → 气泡显示「在写了」
 console.log('bubble:', JSON.stringify(bubble.textContent), '| shown:', bubble.classList.contains('aw-show'));
